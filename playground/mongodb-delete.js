@@ -1,25 +1,12 @@
-// const MongoClient = require('mongodb').MongoClient;
-const {MongoClient, ObjectID} = require('mongodb');
+const {ObjectID} = require('mongodb');
 
-MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
-    if(err) {
-        return console.log('Unable to connect to mongodb server');
-    }
-    console.log('Connected to mongo db server');
+const {mongoose} = require('./../server/db/mongoose');
+const {Todo} = require('./../server/models/todo');
+const {User} = require('./../server/models/user');
 
-    const db = client.db('TodoApp');
+Todo.remove({}).then((result) => {
+    console.log(result);
+});
 
-    // db.collection('Todos').deleteMany({text: 'Eat today'}).then((result) => {
-    //     console.log(result);
-    // })
-
-    // db.collection('Todos').deleteOne({text: 'Eat today'}).then((result) => {
-    //     console.log(result);
-    // })
-
-    db.collection('Todos').findOneAndDelete({completed: false}).then((result) => {
-        console.log(result);
-    })
-
-    client.close();
-})
+// Todo.findOneAndRemove
+// Todo.findByIdAndRemove
